@@ -2,18 +2,27 @@
 {
     internal class Program
     {
-        private const string Path_Assets = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\assets";
-        private const string Path_Config = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\config";
+        private const string PathAssets = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\assets";
+        private const string PathConfig = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\config";
 
         static void DisplayMenu()
         {
             PlayMenuSplash();
 
-            StreamReader sr = new StreamReader($"{Path_Assets}\\main-menu.txt");
-            string menu = sr.ReadToEnd();
-            sr.Close();
+            try
+            {
+                StreamReader sr = new StreamReader($"{PathAssets}\\main-menu.txt");
+                string menu = sr.ReadToEnd();
+                sr.Close();
 
-            Console.Write(menu);
+                Console.Write(menu);
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Error: main-menu.txt in \\assets could not be found, does the file exist and are your paths set correctly?\n");
+                Console.WriteLine($"Assets Path: {PathAssets}\nConfig Path: {PathConfig}");
+                Console.WriteLine("\nTip: You are still able to use the program, just be sure you know what your doing!");
+            }
         }
 
         static void PlayMenuSplash()
