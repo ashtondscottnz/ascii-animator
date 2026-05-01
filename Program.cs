@@ -8,6 +8,12 @@
         static void DisplayMenu()
         {
             LoadMenuSplash();
+
+            StreamReader sr = new StreamReader($"{Path_Assets}\\main-menu.txt");
+            string menu = sr.ReadToEnd();
+            sr.Close();
+
+            Console.Write(menu);
         }
 
         static void LoadMenuSplash()
