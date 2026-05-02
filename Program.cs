@@ -4,6 +4,7 @@
     {
         private const string PathAssets = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\assets";
         private const string PathConfig = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\config";
+        private const string PathAnimations = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\animations";
 
         static void DisplayMenu()
         {
@@ -26,6 +27,11 @@
         }
 
         static void PlayMenuSplash()
+        {
+
+        }
+
+        static void CreateFrames()
         {
 
         }
@@ -57,8 +63,10 @@
                         break;
                     case "3": // Create
                     case "create":
-                        Console.WriteLine("Create");
-                        Thread.Sleep(1000);
+                        do
+                        {
+                            Console.WriteLine("");
+                        } while (!exitCondition);
                         break;
                     case "4": // Settings
                     case "settings":
