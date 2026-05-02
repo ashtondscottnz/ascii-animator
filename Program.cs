@@ -38,8 +38,7 @@
 
         static void Main(string[] args)
         {
-            
-            bool exitCondition = false;
+            bool exitProgram = false;
 
             do
             {
@@ -52,43 +51,56 @@
                 {
                     case "1": // Demo
                     case "demo":
-                        Console.WriteLine("Demo");
-                        Thread.Sleep(1000);
                         break;
+
                     case "2": // Load/Play
                     case "play":
                     case "load":
-                        Console.WriteLine("Load/Play");
-                        Thread.Sleep(1000);
                         break;
+
                     case "3": // Create
                     case "create":
-                        do
+                        while (true) // Prompt user if they would like to create a new animation
                         {
-                            Console.WriteLine("");
-                        } while (!exitCondition);
+                            Console.Clear();
+                            Console.Write("Would you like to create a new animation (y/n)? ");
+                            userInput = Convert.ToString(Console.ReadLine());
+
+                            if (userInput == "y" || userInput == "yes")
+                            {
+                                break;
+                            }
+
+                            if (userInput == "n" || userInput == "no")
+                            {
+                                break;
+                            }
+
+                            Console.Write("Invalid Input!");
+                            Thread.Sleep(1000);
+                        }
                         break;
+
                     case "4": // Settings
                     case "settings":
-                        Console.WriteLine("Settings");
-                        Thread.Sleep(1000);
                         break;
+
                     case "5": // Help
                     case "help":
-                        Console.WriteLine("Help");
-                        Thread.Sleep(1000);
                         break;
+
                     case "exit": // Exit
                     case "q":
-                        exitCondition = true;
+                        exitProgram = true;
                         break;
+
                     default: // Invalid input
                         Console.Write("Invalid input!");
                         Thread.Sleep(1000);
                         break;
                 }
 
-            } while (!exitCondition);
+            } while (!exitProgram);
         }
     }
 }
