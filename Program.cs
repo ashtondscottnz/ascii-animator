@@ -53,6 +53,12 @@ namespace ascii_animator
 
         }
 
+        static void LoadAnimation(string animationSelection)
+        {
+            Console.WriteLine(animationSelection);
+            Console.ReadKey();
+        }
+
         static void CreateAnimation(string animationName, string creatorName, int frameCount, double frameRate, bool loopAnimation)
         {
             Directory.CreateDirectory($"{PathAnimations}\\{animationName}");
@@ -99,6 +105,24 @@ namespace ascii_animator
                     case "2": // Load/Play
                     case "play":
                     case "load":
+                        Console.Clear();
+
+                        string[] animationList = Directory.GetDirectories(PathAnimations);
+
+                        int animationIndex = 1;
+                        Console.WriteLine("Animation List:\n");
+
+                        foreach (string animationDir in animationList)
+                        {
+                            Console.WriteLine($"{animationIndex}. {Path.GetFileName(animationDir)}");
+                            animationIndex++;
+                        }
+
+                        Console.Write("\n> ");
+                        int indexSelection = Convert.ToInt32(Console.ReadLine());
+                        string animationSelection = animationList[indexSelection - 1];
+
+                        LoadAnimation(animationSelection);
                         break;
 
                     case "3": // Create
