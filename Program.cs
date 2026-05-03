@@ -26,6 +26,7 @@ namespace ascii_animator
     {
         private const string PathAssets = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\assets";
         private const string PathConfig = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\config";
+        private const string PathAnimations = "C:\\Users\\Ashton Scott\\Visual Studio\\source\\repos\\ascii-animator\\animations";
 
         static void DisplayMenu()
         {
@@ -52,10 +53,33 @@ namespace ascii_animator
 
         }
 
+        static void CreateAnimation(string animationName, string creatorName, int frameCount, double frameRate, bool loopAnimation)
+        {
+            Directory.CreateDirectory($"{PathAnimations}\\{animationName}");
+
+            using (StreamWriter sw = new StreamWriter($"{PathAnimations}\\{animationName}\\000_metadata.txt"))
+            {
+                sw.WriteLine($"ANIMATION: {animationName}");
+                sw.WriteLine($"CREATOR: {creatorName}");
+                sw.WriteLine($"DATE: {DateTime.Now}");
+                sw.WriteLine($"FRAME_RATE: {frameRate}");
+                sw.WriteLine($"LOOP: {loopAnimation}");
+            }
+
+            for (int i = 0; i < frameCount; i++)
+            {
+                File.Create($"{PathAnimations}\\{animationName}\\{(i + 1):D3}_frame.txt");
+            }
+
+            Console.Clear();
+            Console.WriteLine($"Created '{animationName}' at {PathAnimations}\\{animationName}");
+            Console.Write("Press any key to continue...");
+            Console.ReadLine();
+        }
+
         static void Main(string[] args)
         {
-            
-            bool exitCondition = false;
+            bool exitProgram = false;
 
             do
             {
@@ -63,46 +87,95 @@ namespace ascii_animator
                 DisplayMenu();
 
                 Console.Write("\n> ");
-                string userInput = Convert.ToString(Console.ReadLine());
+                string userInput = Console.ReadLine();
                 switch (userInput.ToLower())
                 {
                     case "1": // Demo
                     case "demo":
-                        Console.WriteLine("Demo");
-                        Thread.Sleep(1000);
                         break;
+
                     case "2": // Load/Play
                     case "play":
                     case "load":
-                        Console.WriteLine("Load/Play");
-                        Thread.Sleep(1000);
                         break;
+
                     case "3": // Create
                     case "create":
-                        Console.WriteLine("Create");
-                        Thread.Sleep(1000);
+                        while (true) // Prompt user if they would like to create a new animation
+                        {
+                            Console.Write("\nCreate a new animation (y/n)? ");
+                            userInput = Console.ReadLine();
+
+                            if (userInput == "y" || userInput == "yes")
+                            {
+                                Console.Clear();
+
+                                Console.Write("Animation name: ");
+                                string animationName = Console.ReadLine();
+
+                                Console.Write("Creator name: ");
+                                string creatorName = Console.ReadLine();
+
+                                Console.Write("Frame count: ");
+                                int frameCount = Convert.ToInt16(Console.ReadLine());
+
+                                Console.Write("Frame rate (fps): ");
+                                double frameRate = Convert.ToDouble(Console.ReadLine());
+
+                                bool loopAnimation;
+                                while (true)
+                                {
+                                    Console.Write("\nDoes your animation loop (y/n)? ");
+                                    userInput = Console.ReadLine();
+
+                                    if (userInput == "y" || userInput == "yes")
+                                    {
+                                        loopAnimation = true;
+                                        break;
+                                    }
+
+                                    if (userInput == "n" || userInput == "no")
+                                    {
+                                        loopAnimation = false;
+                                        break;
+                                    }
+                                    Console.Write("Invalid Input!");
+                                    Thread.Sleep(1000);
+                                }
+                                CreateAnimation(animationName, creatorName, frameCount, frameRate, loopAnimation);
+                                break;
+                            }
+
+                            if (userInput == "n" || userInput == "no")
+                            {
+                                break;
+                            }
+
+                            Console.Write("Invalid Input!");
+                            Thread.Sleep(1000);
+                        }
                         break;
+
                     case "4": // Settings
                     case "settings":
-                        Console.WriteLine("Settings");
-                        Thread.Sleep(1000);
                         break;
+
                     case "5": // Help
                     case "help":
-                        Console.WriteLine("Help");
-                        Thread.Sleep(1000);
                         break;
+
                     case "exit": // Exit
                     case "q":
-                        exitCondition = true;
+                        exitProgram = true;
                         break;
+
                     default: // Invalid input
                         Console.Write("Invalid input!");
                         Thread.Sleep(1000);
                         break;
                 }
 
-            } while (!exitCondition);
+            } while (!exitProgram);
         }
     }
 }
