@@ -103,59 +103,41 @@ namespace ascii_animator
 
                     case "3": // Create
                     case "create":
-                        while (true) // Prompt user if they would like to create a new animation
+                        Console.Clear();
+
+                        Console.Write("Animation name: ");
+                        string animationName = Console.ReadLine();
+
+                        Console.Write("Creator name: ");
+                        string creatorName = Console.ReadLine();
+
+                        Console.Write("Frame count: ");
+                        int frameCount = Convert.ToInt16(Console.ReadLine());
+
+                        Console.Write("Frame rate (fps): ");
+                        double frameRate = Convert.ToDouble(Console.ReadLine());
+
+                        bool loopAnimation;
+                        while (true)
                         {
-                            Console.Write("Create a new animation (y/n)? ");
+                            Console.Write("\nDoes your animation loop (y/n)? ");
                             userInput = Console.ReadLine();
 
                             if (userInput == "y" || userInput == "yes")
                             {
-                                Console.Clear();
-
-                                Console.Write("Animation name: ");
-                                string animationName = Console.ReadLine();
-
-                                Console.Write("Creator name: ");
-                                string creatorName = Console.ReadLine();
-
-                                Console.Write("Frame count: ");
-                                int frameCount = Convert.ToInt16(Console.ReadLine());
-
-                                Console.Write("Frame rate (fps): ");
-                                double frameRate = Convert.ToDouble(Console.ReadLine());
-
-                                bool loopAnimation;
-                                while (true)
-                                {
-                                    Console.Write("\nDoes your animation loop (y/n)? ");
-                                    userInput = Console.ReadLine();
-
-                                    if (userInput == "y" || userInput == "yes")
-                                    {
-                                        loopAnimation = true;
-                                        break;
-                                    }
-
-                                    if (userInput == "n" || userInput == "no")
-                                    {
-                                        loopAnimation = false;
-                                        break;
-                                    }
-                                    Console.Write("Invalid Input!");
-                                    Thread.Sleep(1000);
-                                }
-                                CreateAnimation(animationName, creatorName, frameCount, frameRate, loopAnimation);
+                                loopAnimation = true;
                                 break;
                             }
 
                             if (userInput == "n" || userInput == "no")
                             {
+                                loopAnimation = false;
                                 break;
                             }
-
                             Console.Write("Invalid Input!");
                             Thread.Sleep(1000);
                         }
+                        CreateAnimation(animationName, creatorName, frameCount, frameRate, loopAnimation);
                         break;
 
                     case "4": // Settings
