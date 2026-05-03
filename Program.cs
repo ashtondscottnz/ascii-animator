@@ -31,9 +31,15 @@
 
         }
 
-        static void CreateFrames()
+        static void CreateAnimation(string animationName, string creatorName, int frameCount, double frameRate, bool loopAnimation)
         {
+            Directory.CreateDirectory($"{PathAnimations}\\{animationName}");
 
+            File.Create($"{PathAnimations}\\{animationName}\\0_metadata.txt");
+            for (int i = 0; i < frameCount; i++)
+            {
+                File.Create($"{PathAnimations}\\{animationName}\\{i + 1}_frame.txt");
+            }
         }
 
         static void Main(string[] args)
@@ -46,7 +52,7 @@
                 DisplayMenu();
 
                 Console.Write("\n> ");
-                string userInput = Convert.ToString(Console.ReadLine());
+                string userInput = Console.ReadLine();
                 switch (userInput.ToLower())
                 {
                     case "1": // Demo
@@ -62,12 +68,46 @@
                     case "create":
                         while (true) // Prompt user if they would like to create a new animation
                         {
-                            Console.Clear();
-                            Console.Write("Would you like to create a new animation (y/n)? ");
-                            userInput = Convert.ToString(Console.ReadLine());
+                            Console.Write("\nCreate a new animation (y/n)? ");
+                            userInput = Console.ReadLine();
 
                             if (userInput == "y" || userInput == "yes")
                             {
+                                Console.Clear();
+
+                                Console.Write("Animation name: ");
+                                string animationName = Console.ReadLine();
+
+                                Console.Write("Creator name: ");
+                                string creatorName = Console.ReadLine();
+
+                                Console.Write("Frame count: ");
+                                int frameCount = Convert.ToInt16(Console.ReadLine());
+
+                                Console.Write("Frame rate (fps): ");
+                                double frameRate = Convert.ToDouble(Console.ReadLine());
+
+                                bool loopAnimation;
+                                while (true)
+                                {
+                                    Console.Write("\nDoes your animation loop (y/n)? ");
+                                    userInput = Console.ReadLine();
+
+                                    if (userInput == "y" || userInput == "yes")
+                                    {
+                                        loopAnimation = true;
+                                        break;
+                                    }
+
+                                    if (userInput == "n" || userInput == "no")
+                                    {
+                                        loopAnimation = false;
+                                        break;
+                                    }
+                                    Console.Write("Invalid Input!");
+                                    Thread.Sleep(1000);
+                                }
+                                CreateAnimation(animationName, animationName, frameCount, frameRate, loopAnimation);
                                 break;
                             }
 
