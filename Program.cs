@@ -92,6 +92,8 @@ namespace ascii_animator
                 {
                     case "1": // Demo
                     case "demo":
+                        Console.Write("This feature has not been implemented yet!");
+                        Thread.Sleep(1500);
                         break;
 
                     case "2": // Load/Play
@@ -103,7 +105,7 @@ namespace ascii_animator
                     case "create":
                         while (true) // Prompt user if they would like to create a new animation
                         {
-                            Console.Write("\nCreate a new animation (y/n)? ");
+                            Console.Write("Create a new animation (y/n)? ");
                             userInput = Console.ReadLine();
 
                             if (userInput == "y" || userInput == "yes")
@@ -158,10 +160,14 @@ namespace ascii_animator
 
                     case "4": // Settings
                     case "settings":
+                        Console.Write("This feature has not been implemented yet!");
+                        Thread.Sleep(1500);
                         break;
 
                     case "5": // Help
                     case "help":
+                        Console.Write("This feature has not been implemented yet!");
+                        Thread.Sleep(1500);
                         break;
 
                     case "exit": // Exit
