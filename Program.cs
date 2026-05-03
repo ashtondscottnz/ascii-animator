@@ -35,11 +35,24 @@
         {
             Directory.CreateDirectory($"{PathAnimations}\\{animationName}");
 
-            File.Create($"{PathAnimations}\\{animationName}\\0_metadata.txt");
+            using (StreamWriter sw = new StreamWriter($"{PathAnimations}\\{animationName}\\000_metadata.txt"))
+            {
+                sw.WriteLine($"ANIMATION: {animationName}");
+                sw.WriteLine($"CREATOR: {creatorName}");
+                sw.WriteLine($"DATE: {DateTime.Now}");
+                sw.WriteLine($"FRAME_RATE: {frameRate}");
+                sw.WriteLine($"LOOP: {loopAnimation}");
+            }
+
             for (int i = 0; i < frameCount; i++)
             {
-                File.Create($"{PathAnimations}\\{animationName}\\{i + 1}_frame.txt");
+                File.Create($"{PathAnimations}\\{animationName}\\{(i + 1):D3}_frame.txt");
             }
+
+            Console.Clear();
+            Console.WriteLine($"Created '{animationName}' at {PathAnimations}\\{animationName}");
+            Console.Write("Press any key to continue...");
+            Console.ReadLine();
         }
 
         static void Main(string[] args)
@@ -107,7 +120,7 @@
                                     Console.Write("Invalid Input!");
                                     Thread.Sleep(1000);
                                 }
-                                CreateAnimation(animationName, animationName, frameCount, frameRate, loopAnimation);
+                                CreateAnimation(animationName, creatorName, frameCount, frameRate, loopAnimation);
                                 break;
                             }
 
